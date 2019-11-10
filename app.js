@@ -35,25 +35,27 @@ class UnidaysDiscountChallenge {
             let amount = this.basket[item]; //--- Stores the amount of each item are in the basket
             let itemRuleSet = items[item]; //--- Stores the ruleset for select item in the for loop
             
-            //--- Check if the item has a possible discount. If it doesn't charge the normal price.
-            if (itemRuleSet.discount){
-                let discountItemRequirement = itemRuleSet['discount']['amount']; //--- Stores the amount of items needed in the basket for the discount to be valid
-                let invalidDiscount = (amount % discountItemRequirement); //--- Returns the amount of items that can't be discounted
-                this.price += itemRuleSet['price'] * invalidDiscount; //--- Charge the normal amount for all the items that can't be discounted
-                
-                let discountAmount = (amount - invalidDiscount) / discountItemRequirement; //--- This takes the total count of a item in the basket then subtracts all the invalid discounts that are charged at full price. Then it divides that number by how many items are required for a discount.
-                this.price += discountAmount * itemRuleSet['discount']['price']; //--- This adds to the total price with the discount added to items that can be discounted
-            } else {
-                this.price += itemRuleSet['price'] * amount;
+            try {
+                //--- Check if the item has a possible discount. If it doesn't charge the normal price.
+                if (itemRuleSet.discount){
+                    let discountItemRequirement = itemRuleSet['discount']['amount']; //--- Stores the amount of items needed in the basket for the discount to be valid
+                    let invalidDiscount = (amount % discountItemRequirement); //--- Returns the amount of items that can't be discounted
+                    this.price += itemRuleSet['price'] * invalidDiscount; //--- Charge the normal amount for all the items that can't be discounted
+                    
+                    let discountAmount = (amount - invalidDiscount) / discountItemRequirement; //--- This takes the total count of a item in the basket then subtracts all the invalid discounts that are charged at full price. Then it divides that number by how many items are required for a discount.
+                    this.price += discountAmount * itemRuleSet['discount']['price']; //--- This adds to the total price with the discount added to items that can be discounted
+                } else {
+                    this.price += itemRuleSet['price'] * amount;
+                }
+            } catch {
+                console.log(`[Error]: Item (${item}) not in ruleset file!`);
             }
         }
-
         this.returnObject['total'] = this.price; //--- Setting the total price to be returned in the JS Object 
         this.returnObject['deliveryCharge'] = (this.price >= 50 ? 0:7); //--- If the total price is greater than or equal to 50 then delivery is free otherwise delviery os £7.00
         return this.returnObject; //--- return thr method.
 
     }
-
 }
 
 /*********************
@@ -66,7 +68,7 @@ var example = new UnidaysDiscountChallenge('ruleset.json'); //--- creates a new 
 example.AddToBasket('B');
 example.AddToBasket('B');
 example.AddToBasket('B');
-example.AddToBasket('B');
+example.AddToBasket('F');
 example.AddToBasket('C');
 example.AddToBasket('C');
 example.AddToBasket('C');
