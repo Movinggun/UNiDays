@@ -1,0 +1,33 @@
+{
+    "A": {
+        "price": 8
+    },
+    "B": {
+        "price": 12,
+        "discount": {
+            "amount": 2,
+            "price": 20
+        }
+    },
+    "C": {
+        "price": 4,
+        "discount": {
+            "amount": 3,
+            "price": 10
+        }
+    },
+    "D": {
+        "price": 7,
+        "discount": {
+            "amount": 2,
+            "price": 7
+        }
+    },
+    "E": {
+        "price": 5,
+        "discount": {
+            "amount": 3,
+            "price": 10
+        }
+    }
+}
