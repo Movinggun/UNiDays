@@ -68,7 +68,7 @@ var example = new UnidaysDiscountChallenge('ruleset.json'); //--- creates a new 
 example.AddToBasket('B');
 example.AddToBasket('B');
 example.AddToBasket('B');
-example.AddToBasket('F');
+example.AddToBasket('B');
 example.AddToBasket('C');
 example.AddToBasket('C');
 example.AddToBasket('C');
